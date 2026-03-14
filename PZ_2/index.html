@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Підстанція 330/110 кВ - Моніторинг</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Підстанція 330/110 кВ</h1>
+            <p>Останнє оновлення: <span id="lastUpdate">--:--:--</span></p>
+        </header>
+
+        <div class="controls">
+            <button id="updateBtn" class="btn btn-primary">Оновити</button>
+            <button id="autoUpdateBtn" class="btn btn-success">Автооновлення</button>
+            <button id="clearHistoryBtn" class="btn btn-danger">Очистити історію</button>
+        </div>
+
+        <div class="dashboard">
+            <div class="card">
+                <h3>Напруга 330 кВ</h3>
+                <div class="value">
+                    <span id="param0" class="big-number">0</span>
+                    <span class="unit">кВ</span>
+                </div>
+                <div id="status0" class="status-indicator">●</div>
+            </div>
+
+            <div class="card">
+                <h3>Напруга 110 кВ</h3>
+                <div class="value">
+                    <span id="param1" class="big-number">0</span>
+                    <span class="unit">кВ</span>
+                </div>
+                <div id="status1" class="status-indicator">●</div>
+            </div>
+
+            <div class="card">
+                <h3>Струм 330 кВ</h3>
+                <div class="value">
+                    <span id="param2" class="big-number">0</span>
+                    <span class="unit">А</span>
+                </div>
+                <div id="status2" class="status-indicator">●</div>
+            </div>
+
+            <div class="card">
+                <h3>Частота мережі</h3>
+                <div class="value">
+                    <span id="param3" class="big-number">0</span>
+                    <span class="unit">Гц</span>
+                </div>
+                <div id="status3" class="status-indicator">●</div>
+            </div>
+        </div>
+
+        <div class="dashboard" style="margin-top: 20px;">
+            <div class="card">
+                <h3>Стан роз'єднувачів</h3>
+                <div class="value">
+                    <span id="param-disconnectors" class="big-number" style="font-size: 24px;">Увімкнено</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Тиск SF6 газу</h3>
+                <div class="value">
+                    <span id="param-sf6" class="big-number">0</span>
+                    <span class="unit">МПа</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Положення РПН</h3>
+                <div class="value">
+                    <span class="unit">Ступінь </span>
+                    <span id="param-rpn" class="big-number">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container" style="margin-top: 20px; background: white; padding: 20px; border-radius: 10px;">
+            <canvas id="historyChart"></canvas>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
