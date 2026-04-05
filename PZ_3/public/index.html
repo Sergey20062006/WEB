@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Облік ТП Житла</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Реєстр трансформаторних підстанцій (ТП житла)</h1>
+        </header>
+
+        <main>
+            <section class="form-section">
+                <h2>Реєстрація нової підстанції</h2>
+                
+                <form id="substationForm">
+                    <div class="form-group">
+                        <label for="address">Адреса розташування *</label>
+                        <textarea id="address" name="address" required placeholder="Вулиця, номер будинку"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type">Тип підстанції *</label>
+                        <select id="type" name="type" required>
+                            <option value="">Оберіть тип</option>
+                            <option value="Вбудована">Вбудована (всередині будинку)</option>
+                            <option value="Прибудована">Прибудована до будинку</option>
+                            <option value="Окремо стояча">Окремо стояча будівля</option>
+                            <option value="Щоглова">Щоглова (на опорі)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="apartments">Кількість квартир *</label>
+                            <input type="number" id="apartments" name="apartments" required min="1" placeholder="Напр. 120">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="power">Потужність (кВА) *</label>
+                            <input type="number" id="power" name="power" required min="1" placeholder="Напр. 630">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="load">Пікове навантаження (%) *</label>
+                            <input type="number" id="load" name="load" required min="0" max="200" placeholder="Напр. 85">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="repairStatus">Технічний стан *</label>
+                            <select id="repairStatus" name="repairStatus" required>
+                                <option value="Справна">Справна</option>
+                                <option value="Потребує ремонту">Потребує ремонту</option>
+                                <option value="В ремонті">В ремонті</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="repairDate">Дата останнього/планового ремонту</label>
+                        <input type="date" id="repairDate" name="repairDate">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Зареєструвати</button>
+                        <button type="reset" class="btn btn-secondary">Очистити</button>
+                    </div>
+                </form>
+
+                <div id="message" class="message"></div>
+            </section>
+
+            <section class="data-section">
+                <h2>Зареєстровані підстанції</h2>
+
+                <div class="controls-panel">
+                    
+                    <div class="search-filter-group">
+                        <input type="text" id="searchInput" placeholder="Пошук за адресою...">
+                        
+                        <select id="statusFilter">
+                            <option value="Всі">Всі стани</option>
+                            <option value="Справна">Справна</option>
+                            <option value="Потребує ремонту">Потребує ремонту</option>
+                            <option value="В ремонті">В ремонті</option>
+                        </select>
+                    </div>
+                    
+                    <button id="exportBtn" class="btn btn-export">Експорт у CSV</button>
+                    
+                </div>
+
+                <div id="substationsList" class="substations-list">
+                    </div>
+            </section>
+            
+        </main> </div> <script src="script.js"></script>
+</body>
+</html>

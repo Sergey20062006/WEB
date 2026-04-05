@@ -1,0 +1,68 @@
+[
+  {
+    "id": "1775382639768",
+    "address": "Шевченка 31",
+    "type": "Окремо стояча",
+    "apartments": "3",
+    "power": "100",
+    "load": "33",
+    "repairStatus": "Справна",
+    "repairDate": "2026-04-03",
+    "registrationDate": "05.04.2026, 12:50:39"
+  },
+  {
+    "id": "1775382739392",
+    "address": "206 Дивізії, дім 10",
+    "type": "Окремо стояча",
+    "apartments": "176",
+    "power": "1000",
+    "load": "133",
+    "repairStatus": "В ремонті",
+    "repairDate": "2026-04-01",
+    "registrationDate": "05.04.2026, 12:52:19"
+  },
+  {
+    "id": "1775382790079",
+    "address": "Маяковського, 301",
+    "type": "Окремо стояча",
+    "apartments": "1",
+    "power": "73",
+    "load": "13",
+    "repairStatus": "Потребує ремонту",
+    "repairDate": "2026-02-19",
+    "registrationDate": "05.04.2026, 12:53:10"
+  },
+  {
+    "id": "1775389219516",
+    "address": "Енергетики",
+    "type": "Прибудована",
+    "apartments": "350",
+    "power": "1300",
+    "load": "200",
+    "repairStatus": "Потребує ремонту",
+    "repairDate": "2026-04-25",
+    "registrationDate": "05.04.2026, 14:40:19"
+  },
+  {
+    "id": "1775398855630",
+    "address": "Гайдара,11",
+    "type": "Щоглова",
+    "apartments": "3",
+    "power": "100",
+    "load": "1",
+    "repairStatus": "Потребує ремонту",
+    "repairDate": "2026-04-07",
+    "registrationDate": "05.04.2026, 17:20:55"
+  },
+  {
+    "id": "1775398907642",
+    "address": "Площа",
+    "type": "Окремо стояча",
+    "apartments": "13",
+    "power": "130",
+    "load": "33",
+    "repairStatus": "В ремонті",
+    "repairDate": "2026-03-13",
+    "registrationDate": "05.04.2026, 17:21:47"
+  }
+]
