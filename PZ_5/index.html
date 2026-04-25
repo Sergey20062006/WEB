@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Диспетчерський центр енергомережі</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-4">
+
+        <div class="container mt-4">
+            <h1 class="mb-4">Диспетчерський центр розподільчої мережі</h1>
+    
+            <div class="mb-4">
+                <button id="toggleBtn" class="btn btn-danger">Зупинити симуляцію</button>
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card p-3 shadow-sm">
+                    <h5 class="text-muted">Загальне навантаження</h5>
+                    <h2 id="totalLoad" class="text-primary">-- МВт</h2>
+                    <small>Статус системи: <span id="systemStatus" class="fw-bold">Очікування...</span></small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 shadow-sm">
+                    <h5 class="text-muted">Втрати в лініях</h5>
+                    <h2 id="lineLosses" class="text-warning">-- %</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 shadow-sm">
+                    <h5 class="text-muted">Якість електроенергії</h5>
+                    <p class="mb-0 fs-5">cos φ: <strong id="cosPhi">--</strong></p>
+                    <p class="mb-0 fs-5">THD: <strong id="thd">-- %</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-3 shadow-sm mb-4">
+            <h4>Графіки навантаження фідерів</h4>
+            <canvas id="feedersChart" height="300"></canvas>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card p-3 shadow-sm">
+                    <h4>Таблиця подій</h4>
+                    <div id="eventLogTable"></div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card p-3 shadow-sm">
+                    <h4>Однолінійна схема мережі</h4>
+                    <div id="networkMap" class="p-3 bg-dark text-light rounded">
+                        <p>Фідер 1: <span id="switch1" class="text-success">УВІМКНЕНО</span></p>
+                        <p>Фідер 2: <span id="switch2" class="text-success">УВІМКНЕНО</span></p>
+                        <p>Лінія зв'язку: <span id="switch3" class="text-danger">ВИМКНЕНО</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
