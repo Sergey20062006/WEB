@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Особистий кабінет - Біржа</title>
+    <style>
+        .panel { border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; border-radius: 5px; }
+        #mainContent { display: none; }
+    </style>
+</head>
+<body>
+    <h2>Торгова платформа електроенергії</h2>
+    
+    <h3 id="userStatus" style="color: gray;">Перевірка статусу...</h3>
+
+    <div id="unauthorizedBlock" style="display: none;">
+        <p style="color: red; font-weight: bold;"> Ви не авторизовані. Доступ закрито.</p>
+        <button onclick="window.location.href='/login.html'">Перейти до входу</button>
+        <button onclick="window.location.href='/register.html'">Зареєструватися</button>
+    </div>
+
+    <div id="mainContent">
+        <button id="logoutBtn" style="background: red; color: white;">Вийти із системи</button>
+        <hr>
+
+        <button id="pricesBtn">Подивитися ринкові ціни (Для всіх)</button>
+        <p id="pricesResult"></p>
+
+        <div class="panel">
+            <h3>Створити пропозицію (Тільки для Постачальника)</h3>
+            <form id="offerForm">
+                <input type="number" name="amount" placeholder="Обсяг (кВт)" required>
+                <input type="number" name="price" placeholder="Ціна (грн)" required>
+                <button type="submit">Виставити на продаж</button>
+            </form>
+        </div>
+
+        <div class="panel">
+            <h3>Створити заявку (Тільки для Споживача)</h3>
+            <form id="bidForm">
+                <input type="number" name="amount" placeholder="Обсяг (кВт)" required>
+                <input type="number" name="maxPrice" placeholder="Макс. ціна (грн)" required>
+                <button type="submit">Створити заявку на купівлю</button>
+            </form>
+        </div>
+
+        <div class="panel">
+            <h3>Укласти угоду (Тільки для Брокера)</h3>
+            <form id="dealForm">
+                <input type="text" name="offerId" placeholder="ID Пропозиції" required>
+                <input type="text" name="bidId" placeholder="ID Заявки" required>
+                <input type="text" name="confirmationCode" placeholder="Секретний код підтвердження" required>
+                <button type="submit">Укласти угоду</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', async () => {
+            const statusEl = document.getElementById('userStatus');
+            const mainContent = document.getElementById('mainContent');
+            const unauthBlock = document.getElementById('unauthorizedBlock');
+
+            try {
+                const response = await fetch('/auth/me');
+                
+                if (response.ok) {
+                    const data = await response.json();
+
+                    const roleTranslations = {
+                        'supplier': 'Постачальник',
+                        'consumer': 'Споживач',
+                        'broker': 'Брокер'
+                    };
+                    const roleName = roleTranslations[data.role];
+
+                    statusEl.style.color = 'green';
+                    statusEl.innerText = `Авторизовано: ${data.name} (Роль: ${roleName})`;
+                    mainContent.style.display = 'block';
+                } else {
+                    statusEl.style.display = 'none';
+                    unauthBlock.style.display = 'block';
+                }
+            } catch (err) {
+                statusEl.innerText = 'Помилка з\'єднання з сервером';
+            }
+        });
+
+        async function sendRequest(url, formId) {
+            const form = document.getElementById(formId);
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert('УСПІХ: ' + result.message);
+                form.reset();
+            } else {
+                alert('ПОМИЛКА: ' + (result.error || 'Недостатньо прав або невірні дані'));
+            }
+        }
+
+        document.getElementById('offerForm').addEventListener('submit', (e) => { e.preventDefault(); sendRequest('/api/offers', 'offerForm'); });
+        document.getElementById('bidForm').addEventListener('submit', (e) => { e.preventDefault(); sendRequest('/api/bids', 'bidForm'); });
+        document.getElementById('dealForm').addEventListener('submit', (e) => { e.preventDefault(); sendRequest('/api/deals', 'dealForm'); });
+
+        document.getElementById('pricesBtn').addEventListener('click', async () => {
+            const response = await fetch('/api/market/prices');
+            const result = await response.json();
+            if (response.ok) {
+                document.getElementById('pricesResult').innerText = `Пік: ${result.prices.peakHour}, Не-пік: ${result.prices.offPeakHour}`;
+            } else {
+                alert('Помилка: ' + result.error);
+            }
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await fetch('/auth/logout', { method: 'POST' });
+            window.location.reload(); 
+        });
+    </script>
+</body>
+</html>

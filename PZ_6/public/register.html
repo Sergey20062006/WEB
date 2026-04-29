@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Реєстрація - Торгова платформа</title>
+</head>
+<body>
+    <h2>Реєстрація на платформі</h2>
+    <form id="registerForm">
+        <label>Ім'я:</label><br>
+        <input type="text" name="name" required><br><br>
+
+        <label>Email:</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label>Пароль (мінімум 8 символів):</label><br>
+        <input type="password" name="password" required><br><br>
+
+        <label>Ваша роль:</label><br>
+        <select name="role" required>
+            <option value="supplier">Постачальник</option>
+            <option value="consumer">Споживач</option>
+            <option value="broker">Брокер</option>
+        </select><br><br>
+
+        <button type="submit">Зареєструватися</button>
+    </form>
+    <br>
+    <a href="/login.html">Вже є акаунт? Увійти</a>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            const response = await fetch('/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert('Реєстрація успішна! Тепер ви можете увійти.');
+                e.target.reset();
+            } else {
+                alert('Помилка: ' + (result.error || 'Невірні дані'));
+            }
+        });
+    </script>
+</body>
+</html>
